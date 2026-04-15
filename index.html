@@ -1,0 +1,1627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alexander Golovchits — DLB384 Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─── TOKENS ───────────────────────────────────────────────── */
+    :root {
+      --bg:        #120f0b;
+      --bg2:       #1a1510;
+      --bg3:       #221c15;
+      --paper:     #f0e6d0;
+      --cream:     #e0d2b8;
+      --text:      #cfc3a8;
+      --muted:     #7a6e5a;
+      --amber:     #c4882a;
+      --amber-dim: #9a6820;
+      --rust:      #a03a20;
+      --rust-dim:  #6e2814;
+      --grid:      rgba(196, 136, 42, 0.055);
+      --serif:     'DM Serif Display', Georgia, serif;
+      --body:      'Libre Baskerville', Georgia, serif;
+      --mono:      'Courier Prime', 'Courier New', monospace;
+      --gap:       clamp(3rem, 8vw, 7rem);
+    }
+
+    /* ─── RESET ────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--body);
+      font-size: 1rem;
+      line-height: 1.75;
+      overflow-x: hidden;
+    }
+    ::selection { background: var(--amber); color: var(--bg); }
+
+    /* ─── GRAIN OVERLAY ────────────────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      pointer-events: none;
+      opacity: 0.045;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 180px 180px;
+    }
+
+    /* ─── GRID BACKGROUND ──────────────────────────────────────── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(var(--grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+
+    /* ─── SCROLLBAR ────────────────────────────────────────────── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--amber-dim); border-radius: 2px; }
+
+    /* ─── TOP NAV ──────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 3rem;
+      background: linear-gradient(to bottom, rgba(18,15,11,0.95) 0%, transparent 100%);
+      backdrop-filter: blur(4px);
+    }
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: var(--amber);
+      text-transform: uppercase;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--amber); }
+
+    /* ─── SIDE DOTS ────────────────────────────────────────────── */
+    .side-nav {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+    .side-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--muted);
+      border: 1px solid var(--muted);
+      cursor: pointer;
+      transition: all 0.25s;
+      position: relative;
+    }
+    .side-dot.active,
+    .side-dot:hover {
+      background: var(--amber);
+      border-color: var(--amber);
+      box-shadow: 0 0 8px rgba(196, 136, 42, 0.5);
+    }
+    .side-dot::before {
+      content: attr(data-label);
+      position: absolute;
+      right: 1.4rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.12em;
+      color: var(--amber);
+      text-transform: uppercase;
+      opacity: 0;
+      white-space: nowrap;
+      transition: opacity 0.2s;
+    }
+    .side-dot:hover::before { opacity: 1; }
+
+    /* ─── SECTIONS ─────────────────────────────────────────────── */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: var(--gap) clamp(1.5rem, 8vw, 6rem);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    section + section {
+      border-top: 1px solid rgba(196, 136, 42, 0.12);
+    }
+
+    /* ─── SECTION LABEL ────────────────────────────────────────── */
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+    .section-num {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.25em;
+      color: var(--amber);
+      text-transform: uppercase;
+    }
+    .section-num::before {
+      content: '[ ';
+    }
+    .section-num::after {
+      content: ' ]';
+    }
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, rgba(196,136,42,0.4), transparent);
+    }
+
+    /* ─── HEADINGS ─────────────────────────────────────────────── */
+    h1, h2, h3 { font-family: var(--serif); font-weight: 400; line-height: 1.15; }
+    h1 {
+      font-size: clamp(3.5rem, 9vw, 7rem);
+      color: var(--cream);
+      letter-spacing: -0.02em;
+    }
+    h2 {
+      font-size: clamp(2rem, 4.5vw, 3.2rem);
+      color: var(--cream);
+      margin-bottom: 1.5rem;
+    }
+    h3 {
+      font-size: 1.35rem;
+      color: var(--amber);
+      margin: 2rem 0 0.75rem;
+    }
+    p { margin-bottom: 1.25rem; color: var(--text); max-width: 68ch; }
+    p:last-child { margin-bottom: 0; }
+    em { font-style: italic; color: var(--cream); }
+    strong { font-weight: 700; color: var(--cream); }
+
+    /* ─── CALLOUT BRACKET BOX ──────────────────────────────────── */
+    .bracket-box {
+      position: relative;
+      padding: 2rem 2.5rem;
+      margin: 2.5rem 0;
+      background: var(--bg2);
+    }
+    .bracket-box::before,
+    .bracket-box::after {
+      content: '';
+      position: absolute;
+      width: 18px; height: 18px;
+      border-color: var(--amber);
+      border-style: solid;
+    }
+    .bracket-box::before {
+      top: -1px; left: -1px;
+      border-width: 2px 0 0 2px;
+    }
+    .bracket-box::after {
+      bottom: -1px; right: -1px;
+      border-width: 0 2px 2px 0;
+    }
+    .bracket-box p:last-child { margin-bottom: 0; }
+
+    /* ─── ANNOTATION LINE ──────────────────────────────────────── */
+    .annotation {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: var(--amber-dim);
+      padding: 0.4rem 0;
+      border-left: 2px solid var(--amber-dim);
+      padding-left: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    /* ─── EXPERTISE BARS ───────────────────────────────────────── */
+    .expertise-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem 3rem;
+      margin: 2rem 0;
+    }
+    .skill-item { }
+    .skill-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.4rem;
+    }
+    .skill-name {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--cream);
+    }
+    .skill-val {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      color: var(--amber);
+    }
+    .skill-track {
+      height: 3px;
+      background: rgba(196,136,42,0.15);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .skill-fill {
+      height: 100%;
+      background: linear-gradient(to right, var(--amber-dim), var(--amber));
+      border-radius: 2px;
+      width: 0;
+      transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ─── PROJECT CARD ─────────────────────────────────────────── */
+    .project-card {
+      position: relative;
+      background: var(--bg2);
+      border: 1px solid rgba(196,136,42,0.1);
+      padding: 2.5rem;
+      margin: 2rem 0;
+      transition: border-color 0.3s;
+    }
+    .project-card:hover {
+      border-color: rgba(196,136,42,0.3);
+    }
+    .project-tag {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--rust);
+      margin-bottom: 0.75rem;
+    }
+    .project-card h3 {
+      margin-top: 0;
+      font-size: 1.5rem;
+      color: var(--cream);
+    }
+    .corner-mark {
+      position: absolute;
+      top: 0; right: 0;
+      width: 0; height: 0;
+      border-style: solid;
+      border-width: 0 28px 28px 0;
+      border-color: transparent var(--rust) transparent transparent;
+    }
+
+    /* ─── COURSE CHIPS ─────────────────────────────────────────── */
+    .course-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin: 1.5rem 0;
+    }
+    .chip {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.8rem;
+      border: 1px solid rgba(196,136,42,0.3);
+      color: var(--muted);
+      transition: all 0.2s;
+    }
+    .chip:hover { border-color: var(--amber); color: var(--amber); }
+
+    /* ─── FUTURE GOALS ─────────────────────────────────────────── */
+    .goals-list {
+      list-style: none;
+      padding: 0;
+      margin: 2rem 0;
+    }
+    .goals-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.25rem;
+      padding: 1.25rem 0;
+      border-bottom: 1px solid rgba(196,136,42,0.08);
+    }
+    .goals-list li:last-child { border-bottom: none; }
+    .goal-num {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      color: var(--rust);
+      letter-spacing: 0.1em;
+      padding-top: 0.25rem;
+      flex-shrink: 0;
+    }
+    .goal-text { flex: 1; }
+    .goal-text strong {
+      display: block;
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: 1.1rem;
+      color: var(--cream);
+      margin-bottom: 0.25rem;
+    }
+    .goal-text span {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--amber-dim);
+      letter-spacing: 0.08em;
+    }
+
+    /* ─── HERO SECTION ─────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-top: 6rem;
+      position: relative;
+      border-top: none;
+    }
+    .hero-meta {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 1.75rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .hero-meta::before {
+      content: '';
+      display: block;
+      width: 2.5rem;
+      height: 1px;
+      background: var(--amber);
+    }
+    .hero-subtitle {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 2rem;
+      max-width: 60ch;
+      line-height: 2;
+    }
+    .hero-divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(to right, var(--amber), rgba(196,136,42,0.2), transparent);
+      margin: 2.5rem 0;
+    }
+    .hero-stats {
+      display: flex;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+    .stat {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .stat-val {
+      font-family: var(--serif);
+      font-size: 1.8rem;
+      color: var(--cream);
+      line-height: 1;
+    }
+    .stat-label {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ─── SCROLL FADE-IN ───────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.45s; }
+
+    /* ─── HORIZON RULE ─────────────────────────────────────────── */
+    .h-rule {
+      border: none;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(196,136,42,0.2), transparent);
+      margin: 2.5rem 0;
+    }
+
+    /* ─── QUOTE ────────────────────────────────────────────────── */
+    blockquote {
+      position: relative;
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 1.45rem;
+      color: var(--cream);
+      line-height: 1.55;
+      padding: 1.5rem 0 1.5rem 2.5rem;
+      margin: 2.5rem 0;
+      border-left: 2px solid var(--amber);
+      max-width: 52ch;
+    }
+
+    /* ─── FOOTER ───────────────────────────────────────────────── */
+    footer {
+      position: relative;
+      z-index: 1;
+      padding: 3rem clamp(1.5rem, 8vw, 6rem);
+      border-top: 1px solid rgba(196,136,42,0.12);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-id {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+    }
+    .footer-id strong { color: var(--amber); }
+
+    /* ─── PRINT STYLES ─────────────────────────────────────────── */
+    @media print {
+      body::before, body::after, nav, .side-nav { display: none !important; }
+      body { background: #fff; color: #111; font-size: 11pt; }
+      section { padding: 2rem 1.5rem; }
+      h1 { font-size: 36pt; }
+      h2 { font-size: 22pt; }
+      :root {
+        --cream: #111;
+        --text: #333;
+        --amber: #7a5010;
+        --bg2: #f5f5f5;
+        --muted: #555;
+      }
+      .bracket-box { border: 1px solid #ccc; }
+      .skill-fill { background: #666 !important; }
+      .project-card { border: 1px solid #ccc; }
+    }
+
+    /* ─── RESPONSIVE ───────────────────────────────────────────── */
+    @media (max-width: 700px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .expertise-grid { grid-template-columns: 1fr; }
+      .hero-stats { gap: 2rem; }
+      .side-nav { display: none; }
+    }
+
+    /* ════════════════════════════════════════════════════════════
+       INTRO SCREEN
+       ════════════════════════════════════════════════════════════ */
+
+    /* ─── KEYFRAMES ─────────────────────────────────────────────── */
+    @keyframes scanline {
+      0%   { transform: translateY(-100%); }
+      100% { transform: translateY(100vh); }
+    }
+    @keyframes flicker {
+      0%,100%          { opacity: 1; }
+      92%              { opacity: 1; }
+      93%              { opacity: 0.82; }
+      94%              { opacity: 1; }
+      96%              { opacity: 0.88; }
+      97%              { opacity: 1; }
+    }
+    @keyframes rgb-drift {
+      0%,100% { text-shadow: -2px 0 rgba(255,60,0,0.5), 2px 0 rgba(0,220,160,0.5); }
+      25%     { text-shadow: -3px 0 rgba(255,60,0,0.6), 3px 0 rgba(0,220,160,0.4); }
+      50%     { text-shadow:  2px 0 rgba(255,60,0,0.4),-2px 0 rgba(0,220,160,0.6); }
+      75%     { text-shadow: -1px 0 rgba(255,60,0,0.3), 1px 0 rgba(0,220,160,0.3); }
+    }
+    @keyframes pulse-glow {
+      0%,100% { opacity: 0.5; }
+      50%     { opacity: 1; }
+    }
+    @keyframes cursor-blink {
+      0%,49% { opacity: 1; }
+      50%,100%{ opacity: 0; }
+    }
+    /* intro-exit replaced by shatter-out in glitch section */
+    @keyframes hud-slide-in {
+      from { transform: scaleX(0); opacity: 0; }
+      to   { transform: scaleX(1); opacity: 1; }
+    }
+    @keyframes corner-draw {
+      from { width: 0; height: 0; opacity: 0; }
+      to   { width: 28px; height: 28px; opacity: 1; }
+    }
+    @keyframes vignette-pulse {
+      0%,100% { opacity: 0.6; }
+      50%     { opacity: 0.8; }
+    }
+
+    /* ─── INTRO CONTAINER ───────────────────────────────────────── */
+    #intro {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: #040908;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      animation: flicker 8s infinite;
+      overflow: hidden;
+    }
+    #intro.exit {
+      /* legacy — replaced by .shatter-exit */
+      display: none;
+    }
+
+    /* ─── COPPER RADIAL GLOW ────────────────────────────────────── */
+    #intro::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 55% at 50% 50%,
+          rgba(74,110,60,0.18) 0%,
+          rgba(120,80,30,0.10) 40%,
+          transparent 75%),
+        radial-gradient(ellipse 100% 80% at 50% 100%,
+          rgba(60,40,10,0.35) 0%,
+          transparent 60%);
+      pointer-events: none;
+    }
+
+    /* ─── SCANLINES ─────────────────────────────────────────────── */
+    #intro .scanlines {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2;
+      background: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 3px,
+        rgba(0,0,0,0.28) 3px,
+        rgba(0,0,0,0.28) 4px
+      );
+    }
+    #intro .scan-sweep {
+      position: absolute;
+      left: 0; right: 0;
+      height: 120px;
+      background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(74,124,80,0.06) 40%,
+        rgba(184,115,51,0.08) 55%,
+        transparent 100%
+      );
+      z-index: 3;
+      pointer-events: none;
+      animation: scanline 6s linear infinite;
+    }
+
+    /* ─── VIGNETTE ──────────────────────────────────────────────── */
+    #intro .vignette {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      background: radial-gradient(
+        ellipse 90% 90% at 50% 50%,
+        transparent 45%,
+        rgba(2,5,3,0.7) 100%
+      );
+      animation: vignette-pulse 5s ease-in-out infinite;
+    }
+
+    /* ─── HUD FRAME ─────────────────────────────────────────────── */
+    .hud-bar {
+      position: absolute;
+      left: 0; right: 0;
+      height: 2px;
+      z-index: 5;
+      transform-origin: left center;
+      animation: hud-slide-in 1.2s cubic-bezier(0.16,1,0.3,1) 0.3s both;
+    }
+    .hud-bar.top { top: 0; background: linear-gradient(to right, #4a7c50, #b87333, #4a7c50); }
+    .hud-bar.bottom { bottom: 0; background: linear-gradient(to right, #4a7c50, #b87333, #4a7c50); }
+
+    .hud-status {
+      position: absolute;
+      left: 2.5rem; right: 2.5rem;
+      z-index: 5;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .hud-status.top    { top: 0.7rem;    color: rgba(74,124,80,0.7); }
+    .hud-status.bottom { bottom: 0.7rem; color: rgba(184,115,51,0.55); }
+    .hud-status span { opacity: 0.7; }
+
+    /* ─── HUD CORNERS ───────────────────────────────────────────── */
+    .hud-corner {
+      position: absolute;
+      width: 28px; height: 28px;
+      z-index: 5;
+      animation: corner-draw 0.8s cubic-bezier(0.16,1,0.3,1) 0.6s both;
+    }
+    .hud-corner.tl { top: 2rem; left: 2rem; border-top: 2px solid #b87333; border-left: 2px solid #b87333; }
+    .hud-corner.tr { top: 2rem; right: 2rem; border-top: 2px solid #b87333; border-right: 2px solid #b87333; }
+    .hud-corner.bl { bottom: 2rem; left: 2rem; border-bottom: 2px solid #b87333; border-left: 2px solid #b87333; }
+    .hud-corner.br { bottom: 2rem; right: 2rem; border-bottom: 2px solid #b87333; border-right: 2px solid #b87333; }
+
+    /* ─── DIAGONAL ACCENT LINES ─────────────────────────────────── */
+    .hud-accent {
+      position: absolute;
+      z-index: 4;
+      pointer-events: none;
+    }
+    .hud-accent.left {
+      left: 3.5rem; top: 50%;
+      width: 1px; height: 140px;
+      transform: translateY(-50%);
+      background: linear-gradient(to bottom, transparent, rgba(74,124,80,0.5), transparent);
+    }
+    .hud-accent.right {
+      right: 3.5rem; top: 50%;
+      width: 1px; height: 140px;
+      transform: translateY(-50%);
+      background: linear-gradient(to bottom, transparent, rgba(184,115,51,0.4), transparent);
+    }
+
+    /* ─── MAIN CONTENT AREA ─────────────────────────────────────── */
+    .intro-body {
+      position: relative;
+      z-index: 6;
+      width: min(680px, 90vw);
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    /* ─── BOOT LOG ──────────────────────────────────────────────── */
+    .boot-log {
+      font-family: var(--mono);
+      font-size: clamp(0.6rem, 1.2vw, 0.72rem);
+      letter-spacing: 0.08em;
+      color: rgba(74,124,80,0.85);
+      line-height: 1.9;
+      margin-bottom: 2rem;
+      min-height: 10em;
+    }
+    .boot-line { display: block; }
+    .boot-line.copper { color: rgba(184,115,51,0.9); }
+    .boot-line.warn   { color: rgba(210,140,40,0.85); }
+    .boot-line.bright { color: rgba(120,190,130,0.9); }
+    .boot-cursor {
+      display: inline-block;
+      width: 0.55em; height: 1em;
+      background: #4a7c50;
+      vertical-align: middle;
+      margin-left: 2px;
+      animation: cursor-blink 0.9s step-end infinite;
+    }
+
+    /* ─── BIG NAME ──────────────────────────────────────────────── */
+    .intro-name {
+      font-family: var(--serif);
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      color: #c8903a;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+      animation: rgb-drift 4s ease-in-out infinite;
+    }
+    .intro-name.show { opacity: 1; }
+
+    .intro-sub {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(74,124,80,0.75);
+      margin-top: 0.6rem;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      transition: opacity 0.6s ease 0.3s;
+    }
+    .intro-sub.show { opacity: 1; }
+
+    /* ─── ENTER PROMPT ──────────────────────────────────────────── */
+    .intro-enter {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(184,115,51,0.7);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      animation: pulse-glow 2s ease-in-out infinite;
+      border: 1px solid rgba(184,115,51,0.3);
+      padding: 0.65rem 1.8rem;
+      align-self: flex-start;
+      position: relative;
+    }
+    .intro-enter.show { opacity: 1; }
+    .intro-enter::before {
+      content: '';
+      position: absolute;
+      top: -1px; left: -1px;
+      width: 10px; height: 10px;
+      border-top: 2px solid #b87333;
+      border-left: 2px solid #b87333;
+    }
+    .intro-enter::after {
+      content: '';
+      position: absolute;
+      bottom: -1px; right: -1px;
+      width: 10px; height: 10px;
+      border-bottom: 2px solid #b87333;
+      border-right: 2px solid #b87333;
+    }
+
+    /* ─── DIVIDER ───────────────────────────────────────────────── */
+    .intro-rule {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(to right, rgba(74,124,80,0.5), rgba(184,115,51,0.4), transparent);
+      margin: 1.5rem 0;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .intro-rule.show { opacity: 1; }
+
+    /* ─── HIDE PORTFOLIO WHILE INTRO IS ACTIVE ──────────────────── */
+    body.intro-active { overflow: hidden; }
+    body.intro-active > nav,
+    body.intro-active > .side-nav,
+    body.intro-active > section,
+    body.intro-active > footer {
+      visibility: hidden;
+    }
+
+    @media (max-width: 600px) {
+      .hud-status { display: none; }
+      .hud-corner { width: 18px; height: 18px; top: 1rem; bottom: 1rem; left: 1rem; right: 1rem; }
+      .hud-accent  { display: none; }
+      .intro-name  { font-size: 2.5rem; }
+    }
+
+    /* ─── GLITCH EFFECTS (INTRO ONLY) ──────────────────────────── */
+
+    /* Glitch 1: Text jitter */
+    @keyframes text-jitter {
+      0%   { transform: translate(0, 0); }
+      20%  { transform: translate(-2px, 1px); }
+      40%  { transform: translate(1px, -1px); }
+      60%  { transform: translate(-1px, -2px); }
+      80%  { transform: translate(2px, 1px); }
+      100% { transform: translate(0, 0); }
+    }
+    .intro-body.glitch-jitter {
+      animation: text-jitter 0.08s steps(2) 3;
+    }
+
+    /* ─── ERROR SCREEN ─────────────────────────────────────── */
+    .error-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 80;
+      background: #040908;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: background 0.3s;
+    }
+    .error-overlay.active {
+      opacity: 1;
+      transition: opacity 0.15s, background 0.3s;
+    }
+    .error-text {
+      font-family: var(--mono);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      text-align: center;
+      line-height: 2.2;
+    }
+    .error-text .err-line {
+      display: block;
+      transition: color 0.3s;
+    }
+    .error-text .err-red {
+      color: rgba(210, 60, 40, 0.9);
+      font-size: clamp(0.7rem, 1.5vw, 0.85rem);
+    }
+    .error-text .err-copper {
+      color: rgba(184, 115, 51, 0.85);
+      font-size: clamp(0.6rem, 1.2vw, 0.72rem);
+    }
+    .error-text .err-green {
+      color: rgba(74, 124, 80, 0.8);
+      font-size: clamp(0.6rem, 1.2vw, 0.72rem);
+    }
+    .error-text .err-big {
+      color: rgba(210, 60, 40, 0.95);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      letter-spacing: 0.3em;
+      margin: 1rem 0;
+    }
+    .error-text .err-dim {
+      color: rgba(74, 124, 80, 0.4);
+      font-size: clamp(1rem, 2.5vw, 1.75rem);
+    }
+    @keyframes error-flicker {
+      0%, 100% { opacity: 1; }
+      5%  { opacity: 0.3; }
+      10% { opacity: 1; }
+      50% { opacity: 1; }
+      52% { opacity: 0.6; }
+      54% { opacity: 1; }
+    }
+    .error-overlay.flicker {
+      animation: error-flicker 0.4s steps(2) 2;
+    }
+
+    /* ─── STATIC WIPE LINE ─────────────────────────────────── */
+    .wipe-line {
+      position: fixed;
+      left: 0;
+      right: 0;
+      height: 12px;
+      z-index: 9999;
+      pointer-events: none;
+      background:
+        repeating-linear-gradient(
+          90deg,
+          rgba(255,255,255,0.15) 0px,
+          rgba(0,0,0,0.5) 1px,
+          rgba(255,255,255,0.2) 2px,
+          rgba(0,0,0,0.3) 3px,
+          rgba(255,255,255,0.1) 4px
+        ),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 5px 12px, 200px 200px;
+      mix-blend-mode: screen;
+      filter: contrast(2) brightness(0.7);
+    }
+
+    /* Glitch 3: Color error blocks — small rectangles at the edges */
+    .glitch-color-block {
+      position: absolute;
+      z-index: 45;
+      pointer-events: none;
+      opacity: 0;
+      mix-blend-mode: screen;
+    }
+    .glitch-color-block.active {
+      opacity: 1;
+    }
+  </style>
+</head>
+
+<body class="intro-active">
+
+  <!-- ════════════════════════════════════════════════════════════
+       INTRO SCREEN
+       ════════════════════════════════════════════════════════════ -->
+  <div id="intro" title="Press Space to enter">
+
+    <!-- Atmospheric layers -->
+    <div class="scanlines"></div>
+    <div class="scan-sweep"></div>
+    <div class="vignette"></div>
+
+    <!-- HUD chrome -->
+    <div class="hud-bar top"></div>
+    <div class="hud-bar bottom"></div>
+    <div class="hud-status top">
+      <span>SYS.BOOT — DLB384.PORTFOLIO</span>
+      <span id="intro-clock"></span>
+    </div>
+    <div class="hud-status bottom">
+      <span>TU/E — EINDHOVEN — 2382318</span>
+      <span>INDUSTRIAL DESIGN — Y1</span>
+    </div>
+    <div class="hud-corner tl"></div>
+    <div class="hud-corner tr"></div>
+    <div class="hud-corner bl"></div>
+    <div class="hud-corner br"></div>
+    <div class="hud-accent left"></div>
+    <div class="hud-accent right"></div>
+
+    <!-- Glitch & error layers -->
+    <div class="error-overlay" id="error-overlay">
+      <div class="error-text">
+        <span class="err-line err-red">! CRITICAL SYSTEM FAILURE !</span>
+        <span class="err-line err-copper">PROCESS DLB384.PORTFOLIO — TERMINATED</span>
+        <span class="err-line err-big">ERROR DLB384</span>
+        <span class="err-line err-copper">STACK OVERFLOW UNCOMPLETE BACHLOR</span>
+        <span class="err-line err-green">SENDING BACK TO HUB ........................</span>
+        <span class="err-line err-dim">// REDIRECTING TO REAL PORTFOLIO</span>
+      </div>
+    </div>
+    <div id="glitch-blocks-container"></div>
+
+    <!-- Main content -->
+    <div class="intro-body" id="intro-body">
+      <div class="boot-log" id="boot-log">
+        <span class="boot-cursor" id="boot-cursor"></span>
+      </div>
+      <div class="intro-rule" id="intro-rule"></div>
+      <div class="intro-name" id="intro-name">Alexander<br>Golovchits</div>
+      <div class="intro-sub" id="intro-sub">Industrial Design — TU/e</div>
+      <div class="intro-enter" id="intro-enter">&#x25B6;&nbsp; Press space bar</div>
+    </div>
+  </div>
+  <nav>
+    <div class="nav-logo">A. Golovchits / DLB384</div>
+    <ul class="nav-links">
+      <li><a href="#past">Past</a></li>
+      <li><a href="#identity">Identity</a></li>
+      <li><a href="#vision">Vision</a></li>
+      <li><a href="#present">Present</a></li>
+      <li><a href="#future">Future</a></li>
+      <li><a href="#projects">Projects</a></li>
+    </ul>
+  </nav>
+
+  <!-- ─── SIDE NAVIGATION DOTS ─────────────────────────────────── -->
+  <div class="side-nav">
+    <div class="side-dot active" data-label="Top"      onclick="scrollToSection('hero')"></div>
+    <div class="side-dot"        data-label="Past"     onclick="scrollToSection('past')"></div>
+    <div class="side-dot"        data-label="Identity" onclick="scrollToSection('identity')"></div>
+    <div class="side-dot"        data-label="Vision"   onclick="scrollToSection('vision')"></div>
+    <div class="side-dot"        data-label="Present"  onclick="scrollToSection('present')"></div>
+    <div class="side-dot"        data-label="Future"   onclick="scrollToSection('future')"></div>
+    <div class="side-dot"        data-label="Projects" onclick="scrollToSection('projects')"></div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- HERO                                                         -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section id="hero">
+    <div class="hero-meta reveal">Industrial Design — TU/e — 2382318</div>
+    <h1 class="reveal reveal-delay-1">Alexander<br>Golovchits</h1>
+    <div class="hero-divider reveal reveal-delay-2"></div>
+    <p class="hero-subtitle reveal reveal-delay-3">
+      First year Industrial Design student.<br>
+      How to contact me:<br>
+      a.golovchits@student.tue.nl<br>
+    </p>
+    <div class="hero-stats reveal reveal-delay-4">
+      <div class="stat">
+        <span class="stat-val">Y1</span>
+        <span class="stat-label">Year of Study</span>
+      </div>
+      <div class="stat">
+        <span class="stat-val">4</span>
+        <span class="stat-label">Projects</span>
+      </div>
+      <div class="stat">
+        <span class="stat-val">April 15 2026</span>
+        <span class="stat-label">Last Updated</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="past">
+    <div class="section-label reveal">
+      <span class="section-num">01 — Past</span>
+      <div class="section-line"></div>
+    </div>
+
+    <h2 class="reveal">Where I came<br><em>from</em></h2>
+
+    <div class="annotation reveal">
+      COMMUNITY
+    </div>
+
+    <p class="reveal">
+I grew up as a first-generation Cypriot with Belarusian roots. There were three points in my life that directed me towards industrial design which were my first job,a conversation with a solider and my comander as a role modal. During school I studied triple science. Nothing pointed me towards the direction of industrial design. Then in my senior year I started a part time job in a VR center for kids. That job taught me more than I expected. Not from the equipment, but from the people. Navigating overprotective parents, being patient with young children, and working with kids with disabilities taught me early that the people using a product matter just as much as the product itself. I didn't have the vocabulary for it then, but that was my first real experience of user empathy.
+    </p>
+
+    <p class="reveal">
+After school came 13 months of military service as a tanker. Long guard shifts gave me time I didn't ask for but needed, staring into nothing, thinking about where I was going. Two people shaped that thinking. A conversation with a senior soldier who had no plan as a young adult and regretting not having a five year plan, served as a warning that made me evaluate where I was going. And my commander, who led not through fear but through fairness and truth. Watching him made me understand what it meant to be a good leader, despite the strict hierarchy, he treated every person under him as an individual worth listening to. That's something I've carried into every team I've worked in since.
+    </p>
+
+    <p class="reveal">
+But what really changed me in the army was working on the tanks with my unit. Even with a language barrier the work became a form of communication. The labor of keeping something complex running built a community around it. I fell in love with making things work with my hands. That feeling of working on something bigger than yourself, alongside people who became more than colleagues, is what pointed me toward Industrial Design. Not a five-year plan, but a sence of community.
+    </p>
+
+    <!-- ─── EDIT: swap in your chosen final line below ─── -->
+    <blockquote class="reveal">
+      More than a Design. A Community.
+    </blockquote>
+
+  </section>
+
+  <section id="identity">
+    <div class="section-label reveal">
+      <span class="section-num">02 — Professional Identity</span>
+      <div class="section-line"></div>
+    </div>
+
+    <h2 class="reveal">Who I Am<br><em>as a designer</em></h2>
+
+    <div class="annotation reveal">
+      What is it like to work with me.
+    </div>
+
+    <p class="reveal">
+Growing up between two cultures without fully belonging to either could make you question your identity. I never did. Not because the gap wasn't there, it was, but because I always found belonging somewhere else. In school, in the army, in games. What I noticed early is that community doesn't come from shared background. It comes from shared experience.
+    </p>
+
+    <p class="reveal">
+ The language barrier was with me long before the army. I have lived in Cyprus my entire life and still cannot speak the language fluently. Then I spent thirteen months where it was the only form of communication around me. That experience taught me something I have carried into every team since I can tell when someone's voice isn't being heard because mine often wasn't. It also taught me that actions communicate what words can't. How you show up, what you make, how you treat the work, that tells people who you are. I bring that into how I design and how I collaborate.
+    </p>
+
+    <p class="reveal">
+The other environment that shaped me more than I realized is video games. I loved them, the freedom you feel in a virtual world you can truly create anything, and I believe they have strongly influenced how I approach problem solving. But looking back I definitely see some side effects of my near addiction. I was completely consumed. Which affected me negatively, but now I have learnt from it, Whenever I approach a design I always think about how it can negatively affect a user, which was Main realization in CBL 1.
+    </p>
+
+        <p class="reveal">
+How do you design an experience that makes someone feel genuinely part of something? That question is where my design identity lives right now.
+    </p>
+  </section>
+
+  <section id="vision">
+    <div class="section-label reveal">
+      <span class="section-num">03 — Vision</span>
+      <div class="section-line"></div>
+    </div>
+
+    <h2 class="reveal">What Design<br><em>can do</em></h2>
+
+    <div class="annotation reveal">
+      Immersion in video games.
+    </div>
+
+    <blockquote class="reveal">
+      Design can build community. But I want to develop a medium.
+    </blockquote>
+
+    <p class="reveal">
+ My vision centers on the untapped potential of videogames as tools for genuine education and personal development. The direction I want to take to approach this is through immersion, which isn't just about high-fidelity graphics; it requires both technical innovation and ethical engagement. It is about building systems that connect people to something real.
+    </p>
+
+    <p class="reveal">
+When players are genuinely immersed, whether it is due to the quality of the technology or the feelings that the game makes you feel. Created is space for development. I want to push the boundaries of how games bridge the physical and digital worlds to create this new form of development. By designing experiences that don’t just  entertain, but actively shape how we communicate, learn, and grow.
+    </p>
+
+    <div class="bracket-box reveal">
+      <p>
+        I do not know yet where this leads. The goal for now is to develop the tools — technical, conceptual, 
+        collaborative — to follow the question wherever it goes.
+      </p>
+    </div>
+  </section>
+
+  <section id="present">
+    <div class="section-label reveal">
+      <span class="section-num">04 — Present</span>
+      <div class="section-line"></div>
+    </div>
+
+    <h2 class="reveal">What I am<br><em>learning</em></h2>
+
+    <div class="annotation reveal">
+      How have my expertise areas developed
+    </div>
+
+    </div>
+
+    <h3 class="reveal">Creativity &amp; Aesthetics</h3>
+    <p class="reveal">
+To me, Creativity and Aesthetics is the core of what industrial design is. It isn't just about the final prototype or making something look "nice." It is the entire process of getting there. Because it is such a broad and subjective criteria, the experience can feel like a rollercoaster of constant ups and downs.
+    </p>
+    <p class="reveal">
+Creativity and Aesthetics is where I can really do what I love: working with my hands to make something tactile. However, when it comes to making something digitally, I struggle. This is why, for the majority of my second term, I have been focusing on learning coding and Fusion modeling to create visually appealing digital projects.
+    </p>
+
+    <h3 class="reveal">User &amp; Society</h3>
+    <p class="reveal">
+     Initially, I thought the 'User and Society' expertise area just meant taking the user's point of view into account during a product's development—mostly through questionnaires and interviews. Looking back, I had a limited understanding because I didn't have any prior formal education on these topics, which left a lot of room for development.
+    </p>
+        <p class="reveal">
+     Through this study, I have learned it goes much deeper than I could have imagined. After working on CBL Project 1, I now understand that any product we create affects users both directly and indirectly. And that is a scary thought: when you create a product, you are in charge of how it is received by the general public.
+    </p>
+        <p class="reveal">
+     This is best explained with an example. Take one of my favorite games of all time, Overwatch. It is a multiplayer first-person shooter where players choose heroes from different countries. Yes, it is a fictional story, but the countries are very real. Seeing how game mechanics could influence stereotypes in Project 1 made me relate this concept to something I know and love. I started looking into how game balancing could negatively affect how an entire culture is perceived, especially by younger teenagers.
+    </p>
+
+    <div class="bracket-box reveal">
+      <p>
+User and Society has made me deeply aware of my influence on society's views. Moving forward, my goal is to be much better at identifying and avoiding biases in my products.
+      </p>
+      </div>
+       <h3 class="reveal">Technology &amp; Realization</h3>
+    <p class="reveal">
+     For me Technology and Realization is how well you can intigrate innovation in your projects. For Project 1 I had no experience in coding modaling or any technologies. But throught the second term I have found myself developing in coding languages such as puthon java and C++ through the variation in our courses. Additionally I have developed the first steps into technology by applying arduinos in my projects.
+
+    </p>
+       <p class="reveal">
+     I have found that if i want to achieve my vision i have to improve my idea of technology to beable to immerse yourself in videogames it is not just the feeling you feel and how to improve those feeling my details. It is also improving the technology being used around the world.
+     
+    </p>
+           <h3 class="reveal">Buisness &amp; Entrepreneurship</h3>
+    <p class="reveal">
+    I thought since I havn't had a buisness or worked at a making a company yet I wouldn't have any idea of how to make a running buisness. I would say that I was wrong, because even though I havn't had any formal lessons regarding buisness in project 1 we have already made some of the first steps. In project 1, the biggest complaint about our product was the size. Which made me start to think about the neuances of packaging how we can make it convinent for users. This is where I understood that Buisness and Entrepreneurship isnt just about the money it is making a lasting product.
+
+    </p>
+       <p class="reveal">
+  Additionally to develop my understanding of this expertise area I am part of the next years Intro Weekend where I will have the role of treasurer I am incredibly excited to be part of this role because I believe it can feel a gap that i have in my expertise areas.
+     
+    </p>
+               <h3 class="reveal">Math, Data &amp; Computing</h3>
+    <p class="reveal">
+   Math data and computing for me is how well you understand the data presented. How well you can manipulate it to get different idea's and extrapolate it into your design. The data you gather isnt always just numbers cuase you can change it into a solution. I believe gathering Data is one of the most important parts of a design  process, since you base your iteration of that data. Wether that is qualitive data from international students or questionnaires rearding your project you develop your idea of the data behind the numbers.
+
+    </p>
+       <p class="reveal">
+  I see the power behind data and how the visulization of it can improve the design but I still struggle in the interpolation af data in my next projects I want to focus more on manipulating data to increase the quality of our project.
+    </p>
+  
+
+
+  </section>
+
+  <section id="future">
+    <div class="section-label reveal">
+      <span class="section-num">05 — Future</span>
+      <div class="section-line"></div>
+    </div>
+
+    <h2 class="reveal">Where I am<br><em>going</em></h2>
+
+    <div class="annotation reveal">
+      Till the end of Bachlor Y1 
+    </div>
+
+    <p class="reveal">
+      I am not writing a five-year plan because I do not have one. What I have is a clearer 
+      picture of the gaps, and a set of specific steps toward closing them.
+    </p>
+
+    <ul class="goals-list reveal">
+      <li>
+        <span class="goal-num">G-01</span>
+        <div class="goal-text">
+          <strong>Learn Fusion 360</strong>
+          <span>Technology &amp; Realisation — complete a basic model by end of Q4 2026</span>
+        </div>
+      </li>
+      <li>
+        <span class="goal-num">G-02</span>
+        <div class="goal-text">
+          <strong>Print a modal for my CBL Project 2</strong>
+          <span>Follow up from fusion</span>
+        </div>
+      </li>
+      <li>
+        <span class="goal-num">G-03</span>
+        <div class="goal-text">
+          <strong>Exploratory Making DCB200</strong>
+          <span>I want to be able to create lower fidelity prototypes more effectivly</span>
+        </div>
+      </li>
+      <li>
+        <span class="goal-num">G-04</span>
+        <div class="goal-text">
+          <strong>B.C. 2.0 - Impact of Technology courses</strong>
+          <span>I want to develop my ethical realisation to be able to develop my Vision</span>
+        </div>
+      </li>
+    </ul>
+
+    <p class="reveal">
+      The longer version of the goal is the same thing I felt working on those tanks: 
+      contributing to something bigger than yourself alongside people you come to trust. 
+    </p>
+
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- 06 — PROJECTS                                                -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section id="projects">
+    <div class="section-label reveal">
+      <span class="section-num">06 — Projects</span>
+      <div class="section-line"></div>
+    </div>
+
+    <h2 class="reveal">What I have<br><em>built</em></h2>
+
+    <div class="annotation reveal">
+      // Add your projects here — link to case studies, images, or external pages.
+    </div>
+
+    <div class="project-card reveal">
+      <div class="corner-mark"></div>
+      <div class="project-tag">CBL Project 1</div>
+      <h3>Your Project Title</h3>
+      <p>
+        An educational physical board game designed for players aged 15–25. Players act as 
+        researchers gathering information for a cultural archive, travelling across continents 
+        collecting cultural points. Two modes: Team Mode and Mission Mode.
+      </p>
+      
+      <p>
+        We followed the double diamond and RTDP design processes, iterating on weekly feedback 
+        and user testing throughout.
+      </p>
+      <img src="IMG_5125.jpg" alt="First prototype used for video" style="width:100%; margin-top:1.5rem;">
+      <a href="report.pdf">View Project</a>
+    </div>
+     <!-- PROJECT 2 -->
+    <div class="project-card reveal" style="margin-top: 3rem;">
+      <div class="corner-mark"></div>
+      <div class="project-tag">Project 02 — In Progress</div>
+      <h3>Autonomous Object</h3>
+      <p>
+        Project 2 is currently in progress.But currently we are working on tree like alarm. where i have developed my mechanical and prototyping skills by working on the project.
+      </p>
+      <img src="C26DC631-5839-487B-AB06-F86BA6B67075.JPG" alt="First prototype" style="width:100%; margin-top:1.5rem;">
+      <a href="Work book group 9.pdf">View Project</a>
+    </div>
+               <!-- PROJECT 3 -->
+    <div class="project-card reveal" style="margin-top: 3rem;">
+      <div class="corner-mark"></div>
+      <div class="project-tag">Project 03 </div>
+      <h3>Creative Programming IMG</h3>
+      <p>
+       This project was my first real attempt at coding. Where AI was used as a learning tool to understand the code and to be able to replicate it
+      </p>
+      <img src="Challenge1_final_deliverable.jpg" alt="Final deliverable" style="width:100%; margin-top:1.5rem;">
+    </div>
+                <!-- PROJECT 4 -->
+    <div class="project-card reveal" style="margin-top: 3rem;">
+      <div class="corner-mark"></div>
+      <div class="project-tag">Project 04 </div>
+      <h3>Creative Programming Game</h3>
+      <p>
+       This progect was close to my vision where i focused on how in the game it was reactive to everything you did
+      </p>
+<video controls style="width:100%; margin-top:1.5rem; transform-origin: center center;">
+  <source src="video.mp4" type="video/mp4">
+</video>
+    </div>
+    <div class="project-card reveal" style="margin-top: 3rem;">
+      <div class="corner-mark"></div>
+      <div class="project-tag">Portfolio</div>
+      <h3>AI STATEMENT</h3>
+      <p>
+        AI was used in creating this website it was used in helping to create the code for the designs. It was not used for the written content of the portfolio.
+      </p>
+
+
+    </div>
+
+  </section>
+
+  <!-- ─── FOOTER ────────────────────────────────────────────────── -->
+  <footer>
+    <div class="footer-id">
+      <strong>Alexander Golovchits</strong> — Student no. 2382318 — DLB384 Portfolio
+    </div>
+    <div class="footer-id" style="text-align:right;">
+      Industrial Design — TU/e — Eindhoven
+    </div>
+  </footer>
+
+  <!-- ─── SCRIPTS ───────────────────────────────────────────────── -->
+  <script>
+    // ════════════════════════════════════════════════════════════
+    // INTRO SCREEN
+    // ════════════════════════════════════════════════════════════
+
+    const bootLines = [
+      { text: '> SYSTEM.BOOT  v1.504.26 ................................', cls: 'copper' },
+      { text: '> CHECKING HARDWARE INTEGRITY...........................', cls: '' },
+      { text: '  -- MEMORY OK ٩(>ᴗ<)و   -- DISPLAY OK ദ്ദി( • ᴗ < )  -- INPUT OK ( ˶ˆᗜˆ˵ )', cls: 'bright' },
+      { text: '> LOADING PROFESSIONAL IDENTITY  ..............................', cls: '' },
+      { text: '> SCANNING DESIGN PROFILE ..............................', cls: '' },
+      { text: '  WARNING: INCOMPLETE BACHLOR STUDY - WARNING', cls: 'warn' },
+      { text: '  INITIALISING DEVELOPMENT ....................', cls: '' },
+      { text: '> UPDATING PRESENT ...............................', cls: '' },
+      { text: '> CROSS-REFERENCING TU/E DATABASE ......................', cls: '' },
+      { text: '  -- USER FOUND :) ..............................', cls: 'bright' },
+      { text: '  USER: ALEXANDER GOLOVCHITS', cls: 'copper' },
+      { text: '  STUDENT.ID: 2382318  //  Y1', cls: 'copper' },
+      { text: '> PORTFOLIO INSTANCE READY ..............................', cls: 'bright' },
+    ];
+
+    let lineIdx = 0;
+    const bootLog = document.getElementById('boot-log');
+    const cursor  = document.getElementById('boot-cursor');
+
+    function typeLine() {
+      if (lineIdx >= bootLines.length) {
+        setTimeout(() => {
+          document.getElementById('intro-rule').classList.add('show');
+          document.getElementById('intro-name').classList.add('show');
+          document.getElementById('intro-sub').classList.add('show');
+        }, 200);
+        setTimeout(() => {
+          document.getElementById('intro-enter').classList.add('show');
+          cursor.style.display = 'none';
+        }, 700);
+        return;
+      }
+
+      const { text, cls } = bootLines[lineIdx];
+      const span = document.createElement('span');
+      span.className = 'boot-line' + (cls ? ' ' + cls : '');
+      span.textContent = text;
+      bootLog.insertBefore(span, cursor);
+      lineIdx++;
+
+      const delay = lineIdx < 3 ? 90 : lineIdx < 8 ? 110 : 130;
+      setTimeout(typeLine, delay);
+    }
+
+    // Live clock in top HUD
+    function updateClock() {
+      const el = document.getElementById('intro-clock');
+      if (!el) return;
+      const now = new Date();
+      el.textContent = now.toLocaleTimeString('en-GB', { hour12: false });
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    // Start boot sequence after brief pause
+    setTimeout(typeLine, 600);
+
+    // Dismiss handler — error screen + hex grid transition
+    function dismissIntro() {
+      glitchActive = false;
+      const intro = document.getElementById('intro');
+      const errorOverlay = document.getElementById('error-overlay');
+
+      // 1. Quick screen shake
+      intro.style.transform = 'translate(-3px, 2px)';
+      setTimeout(() => { intro.style.transform = 'translate(2px, -2px)'; }, 50);
+      setTimeout(() => { intro.style.transform = ''; }, 100);
+
+      // 2. Flash the error screen
+      setTimeout(() => {
+        errorOverlay.classList.add('active');
+        errorOverlay.classList.add('flicker');
+      }, 150);
+
+      // 3. Remove flicker class after it plays
+      setTimeout(() => {
+        errorOverlay.classList.remove('flicker');
+      }, 600);
+
+      // 4. After error shows, wipe line sweeps down to reveal portfolio
+      setTimeout(() => {
+        startWipeLine(intro);
+      }, 2000);
+    }
+
+    function startWipeLine(intro) {
+      // Create the static line
+      const line = document.createElement('div');
+      line.className = 'wipe-line';
+      line.style.top = '0px';
+      document.body.appendChild(line);
+
+      // As the line moves down, clip the intro from the top
+      const duration = 1200;
+      const start = performance.now();
+
+      function animate(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const y = progress * window.innerHeight;
+
+        line.style.top = y + 'px';
+        intro.style.clipPath = `inset(${y}px 0 0 0)`;
+
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        } else {
+          // Done — remove intro and line
+          intro.style.display = 'none';
+          document.body.classList.remove('intro-active');
+          line.remove();
+        }
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    // Spacebar or click to trigger
+    document.addEventListener('keydown', function handler(e) {
+      if (e.code === 'Space') {
+        e.preventDefault();
+        dismissIntro();
+        document.removeEventListener('keydown', handler);
+      }
+    });
+
+    document.getElementById('intro').addEventListener('click', function handler() {
+      dismissIntro();
+      this.removeEventListener('click', handler);
+    });
+
+    // ════════════════════════════════════════════════════════════
+    // GLITCH EFFECTS (INTRO ONLY)
+    // ════════════════════════════════════════════════════════════
+
+    let glitchActive = true;
+
+    // --- Glitch 1: Text jitter ---
+    // Randomly adds a quick shake to the intro-body
+    function triggerJitter() {
+      if (!glitchActive) return;
+      const body = document.getElementById('intro-body');
+      body.classList.add('glitch-jitter');
+      body.addEventListener('animationend', () => {
+        body.classList.remove('glitch-jitter');
+      }, { once: true });
+      // Schedule next jitter: random 5–12 seconds
+      setTimeout(triggerJitter, 5000 + Math.random() * 7000);
+    }
+    setTimeout(triggerJitter, 4000);
+
+    // --- Glitch 2: (removed — replaced by glass-break exit) ---
+
+    // --- Glitch 3: Color error blocks ---
+    // Small colored rectangles near edges of screen
+    const glitchColors = [
+      'rgba(255, 60, 0, 0.6)',   // red-orange
+      'rgba(0, 220, 160, 0.5)',  // cyan-green
+      'rgba(184, 115, 51, 0.7)', // copper
+      'rgba(74, 124, 80, 0.6)',  // green
+      'rgba(255, 200, 0, 0.4)',  // yellow
+    ];
+
+    function triggerColorBlocks() {
+      if (!glitchActive) return;
+      const container = document.getElementById('glitch-blocks-container');
+      const count = 2 + Math.floor(Math.random() * 4); // 2–5 blocks
+
+      for (let i = 0; i < count; i++) {
+        const block = document.createElement('div');
+        block.className = 'glitch-color-block';
+
+        // Size: small rectangles
+        const w = 20 + Math.random() * 80;  // 20–100px wide
+        const h = 4 + Math.random() * 16;   // 4–20px tall
+        block.style.width = w + 'px';
+        block.style.height = h + 'px';
+        block.style.background = glitchColors[Math.floor(Math.random() * glitchColors.length)];
+
+        // Position: push toward edges (not center)
+        const edge = Math.floor(Math.random() * 4); // 0=top, 1=bottom, 2=left, 3=right
+        switch (edge) {
+          case 0: // top area
+            block.style.top = (Math.random() * 15) + '%';
+            block.style.left = (Math.random() * 90) + '%';
+            break;
+          case 1: // bottom area
+            block.style.bottom = (Math.random() * 15) + '%';
+            block.style.left = (Math.random() * 90) + '%';
+            break;
+          case 2: // left area
+            block.style.top = (Math.random() * 90) + '%';
+            block.style.left = (Math.random() * 12) + '%';
+            break;
+          case 3: // right area
+            block.style.top = (Math.random() * 90) + '%';
+            block.style.right = (Math.random() * 12) + '%';
+            break;
+        }
+
+        block.classList.add('active');
+        container.appendChild(block);
+
+        // Remove after brief flash (60–180ms)
+        setTimeout(() => {
+          block.remove();
+        }, 60 + Math.random() * 120);
+      }
+
+      // Schedule next: random 7–15 seconds
+      setTimeout(triggerColorBlocks, 7000 + Math.random() * 8000);
+    }
+    setTimeout(triggerColorBlocks, 6000);
+
+    // ════════════════════════════════════════════════════════════
+    // PORTFOLIO
+    // ════════════════════════════════════════════════════════════
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          e.target.querySelectorAll('.skill-fill[data-width]').forEach(bar => {
+            bar.style.width = bar.dataset.width + '%';
+          });
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    document.querySelectorAll('.skill-fill[data-width]').forEach(bar => {
+      const rect = bar.getBoundingClientRect();
+      if (rect.top < window.innerHeight) {
+        bar.style.width = bar.dataset.width + '%';
+      }
+    });
+
+    // ── Side dot highlighting ─────────────────────────────────
+    const sections   = document.querySelectorAll('section[id]');
+    const dots       = document.querySelectorAll('.side-dot');
+    const sectionIds = ['hero','past','identity','vision','present','future','projects'];
+
+    const secObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const idx = sectionIds.indexOf(e.target.id);
+          dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+        }
+      });
+    }, { threshold: 0.4 });
+
+    sections.forEach(s => secObserver.observe(s));
+
+    function scrollToSection(id) {
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+
+</body>
+</html>
