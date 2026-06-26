@@ -555,7 +555,6 @@
       0%,49% { opacity: 1; }
       50%,100%{ opacity: 0; }
     }
-    /* intro-exit replaced by shatter-out in glitch section */
     @keyframes hud-slide-in {
       from { transform: scaleX(0); opacity: 0; }
       to   { transform: scaleX(1); opacity: 1; }
@@ -584,7 +583,6 @@
       overflow: hidden;
     }
     #intro.exit {
-      /* legacy — replaced by .shatter-exit */
       display: none;
     }
 
@@ -828,7 +826,6 @@
 
     /* ─── GLITCH EFFECTS (INTRO ONLY) ──────────────────────────── */
 
-    /* Glitch 1: Text jitter */
     @keyframes text-jitter {
       0%   { transform: translate(0, 0); }
       20%  { transform: translate(-2px, 1px); }
@@ -927,7 +924,6 @@
       filter: contrast(2) brightness(0.7);
     }
 
-    /* Glitch 3: Color error blocks — small rectangles at the edges */
     .glitch-color-block {
       position: absolute;
       z-index: 45;
@@ -948,12 +944,10 @@
        ════════════════════════════════════════════════════════════ -->
   <div id="intro" title="Press Space to enter">
 
-    <!-- Atmospheric layers -->
     <div class="scanlines"></div>
     <div class="scan-sweep"></div>
     <div class="vignette"></div>
 
-    <!-- HUD chrome -->
     <div class="hud-bar top"></div>
     <div class="hud-bar bottom"></div>
     <div class="hud-status top">
@@ -971,7 +965,6 @@
     <div class="hud-accent left"></div>
     <div class="hud-accent right"></div>
 
-    <!-- Glitch & error layers -->
     <div class="error-overlay" id="error-overlay">
       <div class="error-text">
         <span class="err-line err-red">! CRITICAL SYSTEM FAILURE !</span>
@@ -984,7 +977,6 @@
     </div>
     <div id="glitch-blocks-container"></div>
 
-    <!-- Main content -->
     <div class="intro-body" id="intro-body">
       <div class="boot-log" id="boot-log">
         <span class="boot-cursor" id="boot-cursor"></span>
@@ -995,6 +987,7 @@
       <div class="intro-enter" id="intro-enter">&#x25B6;&nbsp; Press space bar</div>
     </div>
   </div>
+
   <nav>
     <div class="nav-logo">A. Golovchits / DLB384</div>
     <ul class="nav-links">
@@ -1007,7 +1000,6 @@
     </ul>
   </nav>
 
-  <!-- ─── SIDE NAVIGATION DOTS ─────────────────────────────────── -->
   <div class="side-nav">
     <div class="side-dot active" data-label="Top"      onclick="scrollToSection('hero')"></div>
     <div class="side-dot"        data-label="Past"     onclick="scrollToSection('past')"></div>
@@ -1059,7 +1051,7 @@
     </div>
 
     <p class="reveal">
-I grew up as a first-generation Cypriot with Belarusian roots. There were three points in my life that directed me towards industrial design which were my first job,a conversation with a solider and my comander as a role modal. During school I studied triple science. Nothing pointed me towards the direction of industrial design. Then in my senior year I started a part time job in a VR center for kids. That job taught me more than I expected. Not from the equipment, but from the people. Navigating overprotective parents, being patient with young children, and working with kids with disabilities taught me early that the people using a product matter just as much as the product itself. I didn't have the vocabulary for it then, but that was my first real experience of user empathy.
+I grew up as a first-generation Cypriot with Belarusian roots. There were three points in my life that directed me towards industrial design which were my first job, a conversation with a soldier and my commander as a role model. During school I studied triple science. Nothing pointed me towards the direction of industrial design. Then in my senior year I started a part time job in a VR center for kids. That job taught me more than I expected. Not from the equipment, but from the people. Navigating overprotective parents, being patient with young children, and working with kids with disabilities taught me early that the people using a product matter just as much as the product itself. I didn't have the vocabulary for it then, but that was my first real experience of user empathy.
     </p>
 
     <p class="reveal">
@@ -1067,10 +1059,9 @@ After school came 13 months of military service as a tanker. Long guard shifts g
     </p>
 
     <p class="reveal">
-But what really changed me in the army was working on the tanks with my unit. Even with a language barrier the work became a form of communication. The labor of keeping something complex running built a community around it. I fell in love with making things work with my hands. That feeling of working on something bigger than yourself, alongside people who became more than colleagues, is what pointed me toward Industrial Design. Not a five-year plan, but a sence of community.
+But what really changed me in the army was working on the tanks with my unit. Even with a language barrier the work became a form of communication. The labor of keeping something complex running built a community around it. I fell in love with making things work with my hands. That feeling of working on something bigger than yourself, alongside people who became more than colleagues, is what pointed me toward Industrial Design. Not a five-year plan, but a sense of community.
     </p>
 
-    <!-- ─── EDIT: swap in your chosen final line below ─── -->
     <blockquote class="reveal">
       More than a Design. A Community.
     </blockquote>
@@ -1094,14 +1085,14 @@ Growing up between two cultures without fully belonging to either could make you
     </p>
 
     <p class="reveal">
- The language barrier was with me long before the army. I have lived in Cyprus my entire life and still cannot speak the language fluently. Then I spent thirteen months where it was the only form of communication around me. That experience taught me something I have carried into every team since I can tell when someone's voice isn't being heard because mine often wasn't. It also taught me that actions communicate what words can't. How you show up, what you make, how you treat the work, that tells people who you are. I bring that into how I design and how I collaborate.
+The language barrier was with me long before the army. I have lived in Cyprus my entire life and still cannot speak the language fluently. Then I spent thirteen months where it was the only form of communication around me. That experience taught me something I have carried into every team since: I can tell when someone's voice isn't being heard because mine often wasn't. It also taught me that actions communicate what words can't. How you show up, what you make, how you treat the work, that tells people who you are. I bring that into how I design and how I collaborate.
     </p>
 
     <p class="reveal">
-The other environment that shaped me more than I realized is video games. I loved them, the freedom you feel in a virtual world you can truly create anything, and I believe they have strongly influenced how I approach problem solving. But looking back I definitely see some side effects of my near addiction. I was completely consumed. Which affected me negatively, but now I have learnt from it, Whenever I approach a design I always think about how it can negatively affect a user, which was Main realization in CBL 1.
+The other environment that shaped me more than I realized is video games. I loved them, the freedom you feel in a virtual world you can truly create anything, and I believe they have strongly influenced how I approach problem solving. But looking back I definitely see some side effects of my near addiction. I was completely consumed. Which affected me negatively, but now I have learnt from it. Whenever I approach a design I always think about how it can negatively affect a user, which was a main realization in CBL 1.
     </p>
 
-        <p class="reveal">
+    <p class="reveal">
 How do you design an experience that makes someone feel genuinely part of something? That question is where my design identity lives right now.
     </p>
   </section>
@@ -1123,11 +1114,11 @@ How do you design an experience that makes someone feel genuinely part of someth
     </blockquote>
 
     <p class="reveal">
- My vision centers on the untapped potential of videogames as tools for genuine education and personal development. The direction I want to take to approach this is through immersion, which isn't just about high-fidelity graphics; it requires both technical innovation and ethical engagement. It is about building systems that connect people to something real.
+My vision centers on the untapped potential of videogames as tools for genuine education and personal development. The direction I want to take to approach this is through immersion, which isn't just about high-fidelity graphics; it requires both technical innovation and ethical engagement. It is about building systems that connect people to something real.
     </p>
 
     <p class="reveal">
-When players are genuinely immersed, whether it is due to the quality of the technology or the feelings that the game makes you feel. Created is space for development. I want to push the boundaries of how games bridge the physical and digital worlds to create this new form of development. By designing experiences that don’t just  entertain, but actively shape how we communicate, learn, and grow.
+When players are genuinely immersed, whether it is due to the quality of the technology or the feelings that the game makes you feel, space is created for development. I want to push the boundaries of how games bridge the physical and digital worlds to create this new form of development. By designing experiences that don't just entertain, but actively shape how we communicate, learn, and grow.
     </p>
 
     <div class="bracket-box reveal">
@@ -1150,60 +1141,80 @@ When players are genuinely immersed, whether it is due to the quality of the tec
       How have my expertise areas developed
     </div>
 
-    </div>
-
     <h3 class="reveal">Creativity &amp; Aesthetics</h3>
     <p class="reveal">
-To me, Creativity and Aesthetics is the core of what industrial design is. It isn't just about the final prototype or making something look "nice." It is the entire process of getting there. Because it is such a broad and subjective criteria, the experience can feel like a rollercoaster of constant ups and downs.
+To me, Creativity and Aesthetics is the core of what industrial design is. It isn't just about the final prototype or making something look "nice." It is the entire process of getting there. During my first year I have noticed that C&amp;A is a subjective EA. This is due to when we discussed about different game characters in our CBL1 project, there were all kinds of different opinions on what looked and felt good. This caused me to adapt the project from what I believed looked good to what the user believed. Since in the end I design for the user not the designer. This viewpoint will carry on into my vision since I'm not designing for myself, I am trying to create a more immersive experience for the users.
     </p>
     <p class="reveal">
-Creativity and Aesthetics is where I can really do what I love: working with my hands to make something tactile. However, when it comes to making something digitally, I struggle. This is why, for the majority of my second term, I have been focusing on learning coding and Fusion modeling to create visually appealing digital projects.
+Creativity for me covers the process and the creative problem solving of how I approach the design. This was done by following different techniques and methodologies in creating my project for CBL1. Creating brainstorms on what we wanted our game to be, sketching out my own ideas of the boardgame and playable characters, prototyping a physical product with cardboard and styrofoam that illustrated our idea to our assessor. What I thought worked really well while working on my sketches was writing down my idea and reflections directly on the sketch. This made it a lot easier to be able to explain my process for myself and peers. On the other hand, I struggled to recognize that low fidelity prototypes were just that "low-fidelity prototypes". I found myself putting in a lot of time and effort into a direction that as a team we decided to deviate from. In the future I plan to keep more contact with my team to avoid developing a direction we do not follow by the end.
+    </p>
+    <p class="reveal">
+While Aesthetics for me explains that process through human senses. The design should be able to show the design process. In our CBL1 project we wanted to create a boardgame that would stop the user from looking down at the board. Instead to look at the person you are playing with. This design choice influenced the board game to change from a typical flat style to the globelike shape that causes you to naturally raise your eyes. I really enjoyed the whole idea of designing around a principle like avoiding looking down at the game. In the future I want to follow this structure where I follow certain rules like design manifestos.
     </p>
 
     <h3 class="reveal">User &amp; Society</h3>
     <p class="reveal">
-     Initially, I thought the 'User and Society' expertise area just meant taking the user's point of view into account during a product's development—mostly through questionnaires and interviews. Looking back, I had a limited understanding because I didn't have any prior formal education on these topics, which left a lot of room for development.
+Initially, I thought the 'User and Society' expertise area just meant taking the user's point of view into account during a product's development through questionnaires and interviews. Looking back, it was a very closed-minded view of the influence the user has on the product. Currently I would define it as "users' effect on design and design's effect on society".
     </p>
-        <p class="reveal">
-     Through this study, I have learned it goes much deeper than I could have imagined. After working on CBL Project 1, I now understand that any product we create affects users both directly and indirectly. And that is a scary thought: when you create a product, you are in charge of how it is received by the general public.
+    <p class="reveal">
+CBL project 1 was where I got this understanding of U&amp;S. Through the course Human-Centred Design I started learning design based on a user-centred perspective especially using RTDP. I created personas for our game that we would act out to get a better understanding of what adjustments we should make. In our game this made us remember how memorable the play figures in games are — you would constantly fight over who gets to be the cooler-looking one. Through just acting out as the individual I was able to give a perspective on the design that I didn't think of before. Now this is something I constantly do. I love playing out as different people during the design process to really get all perspectives, especially enjoying playing devil's advocate to see what they might love and hate. This viewpoint made us change the final design to also have a team mode so that people who might feel that they wouldn't enjoy playing as much have help from a teammate. Additionally it changed the style of our questions from trivia to more fun and interactive ways of play. Now I see how important design is from the user's perspective, but also from the opposite user — it can give possible insight that could change your design.
     </p>
-        <p class="reveal">
-     This is best explained with an example. Take one of my favorite games of all time, Overwatch. It is a multiplayer first-person shooter where players choose heroes from different countries. Yes, it is a fictional story, but the countries are very real. Seeing how game mechanics could influence stereotypes in Project 1 made me relate this concept to something I know and love. I started looking into how game balancing could negatively affect how an entire culture is perceived, especially by younger teenagers.
+    <p class="reveal">
+Furthermore, I found interviews to be the most effective way of gathering user-centred data, especially when the format was open-ended questions. In our game a user study was done and then a following interview was conducted. Through this interview we were able to determine how we had introduced bias into our game — that the questions centred around Europe were a lot harder than the ones outside of the area. This showed a blind-spot during our design process. Since we were all European, we naturally made the harder questions in our region. This interview question about game difficulty made me understand better how biases can be easily introduced in games. Follow-up research showed that in our game there were multiple ways we were introducing bias, such as: drawing out the different regions, question difficulty, and figurine classes. How figurines introduced bias was the most interesting to me. We had playable characters based on the countries' national animals, illustrating their culture in a respectable way. If this were done distastefully it could introduce bias, but more interestingly for me was the game mechanics side — introducing a class-based system in a country-based board game, meaning the different characters had different powers. These powers would directly influence whether you would win or lose. This made me realise how power scaling could influence the perception of a country — for example, if a character was weaker, it could reflect my own personal bias or even have a systemic effect where users start seeing a country negatively because they are weak in-game. This made me realise that in many class-based video games where specific countries are named, they can have an influence on how society perceives them. Moreover, whose fault is it — is it the fault of the user who thinks of these negative stereotypes, or is it the designer's fault for introducing the conversation?
     </p>
 
     <div class="bracket-box reveal">
       <p>
 User and Society has made me deeply aware of my influence on society's views. Moving forward, my goal is to be much better at identifying and avoiding biases in my products.
       </p>
-      </div>
-       <h3 class="reveal">Technology &amp; Realization</h3>
+    </div>
+
+    <h3 class="reveal">Technology &amp; Realization</h3>
     <p class="reveal">
-     For me Technology and Realization is how well you can intigrate innovation in your projects. For Project 1 I had no experience in coding modaling or any technologies. But throught the second term I have found myself developing in coding languages such as puthon java and C++ through the variation in our courses. Additionally I have developed the first steps into technology by applying arduinos in my projects.
-
+Technology and realization is my weakest EA and it is the one I plan to work on the most in my second term. Right now, I define it as how I introduce electronics and mechanics into my projects. Which for my first project I didn't have any prior knowledge on how to introduce it.
     </p>
-       <p class="reveal">
-     I have found that if i want to achieve my vision i have to improve my idea of technology to beable to immerse yourself in videogames it is not just the feeling you feel and how to improve those feeling my details. It is also improving the technology being used around the world.
-     
-    </p>
-           <h3 class="reveal">Buisness &amp; Entrepreneurship</h3>
     <p class="reveal">
-    I thought since I havn't had a buisness or worked at a making a company yet I wouldn't have any idea of how to make a running buisness. I would say that I was wrong, because even though I havn't had any formal lessons regarding buisness in project 1 we have already made some of the first steps. In project 1, the biggest complaint about our product was the size. Which made me start to think about the neuances of packaging how we can make it convinent for users. This is where I understood that Buisness and Entrepreneurship isnt just about the money it is making a lasting product.
-
+Currently I haven't introduced Arduino beyond trying to incorporate them into my creative programming game. This was done by initially planning out to use an Arduino with buttons as a controller and starting to code the controller. Unfortunately, I was not able to use it for my project due to running out of time. This was a time period where I was studying remotely and did not have access to Arduino and electronics. From now on I see that working on technology is something that I couldn't do remotely and, in the future, will have to plan around it.
     </p>
-       <p class="reveal">
-  Additionally to develop my understanding of this expertise area I am part of the next years Intro Weekend where I will have the role of treasurer I am incredibly excited to be part of this role because I believe it can feel a gap that i have in my expertise areas.
-     
-    </p>
-               <h3 class="reveal">Math, Data &amp; Computing</h3>
     <p class="reveal">
-   Math data and computing for me is how well you understand the data presented. How well you can manipulate it to get different idea's and extrapolate it into your design. The data you gather isnt always just numbers cuase you can change it into a solution. I believe gathering Data is one of the most important parts of a design  process, since you base your iteration of that data. Wether that is qualitive data from international students or questionnaires rearding your project you develop your idea of the data behind the numbers.
-
+Lastly, I would like to focus more on the realization of this EA that for me is categorized as mechanics. To be able to develop this skill I want to develop 3D modeling skills to be able to 3D print the mechanics necessary for my projects.
     </p>
-       <p class="reveal">
-  I see the power behind data and how the visulization of it can improve the design but I still struggle in the interpolation af data in my next projects I want to focus more on manipulating data to increase the quality of our project.
-    </p>
-  
 
+    <h3 class="reveal">Business &amp; Entrepreneurship</h3>
+    <p class="reveal">
+Business and Entrepreneurship is an expertise area that is not focused on the first year. This is why I felt like I have not developed enough in this EA. This reflection was made after looking into the rubric and seeing that I didn't consider any of the subcategories in B&amp;E towards my projects. Since I didn't take them into account before I decided to look into my project from this new perspective.
+    </p>
+    <p class="reveal">
+This is where I noticed some development towards B&amp;E. Firstly, in regard to market analysis and identifying competition. I didn't do any more research than just looking into whether my game for CBL1 existed or not. Instead of this, from now on I want to approach the market from a perspective of "What is missing, and what I can add to it". I believe this is a better approach for making a product because it focuses on innovation rather than trying to reinvent the wheel. Secondly, I started getting the idea of customer value in CBL1. We got user feedback in regard to the packaging of our game, that a game so large and frustrating to move could discourage users from buying/playing the game. This made me start thinking more critically regarding what the net perceived benefit of the user is. This is why I tried making the packaging more accessible for users by decreasing the size of when it is in the box, because if we decrease the size which caused nuisance, there will be an increased benefit for the customer. This was done by changing the shape of our design from a pre-built globe to a puzzle that forms into a spherical polyhedron which becomes the game board.
+    </p>
+    <p class="reveal">
+Business and Entrepreneurship for me has become why and how I make design choices towards commercial use or innovation for societal development. I have already decided to develop these skills due to the lack of official courses by joining first-years' weekend committee as treasurer. Through this committee I want to gain a better understanding on how to create a product that people will buy, in other words creating a product for commercial use. This will be done while developing skills in planning, budgeting, and communication. I believe this will be a good baseline for my first course in B&amp;E (Design Innovation), where I want to build on it by learning how to analyze the market for potential value.
+    </p>
+    <p class="reveal">
+Overall, in my vision I see how commercial thinking matters because immersive digital-physical products only reach people if they're viable to produce and sell, not just well-designed.
+    </p>
+
+    <h3 class="reveal">Math, Data &amp; Computing</h3>
+    <p class="reveal">
+Math, Data and Computing is an EA that I did not focus on in the 1st year. Additionally, it is an area that I haven't developed significantly enough in my CBL. I have developed them through my core courses Foundation of Data Analytics and Creative Programming. These courses were my introduction into the world of programming. Currently I define MDC as, "How I can manipulate math and code to create solutions for practical use?". This links into my future vision because if I want to create immersive digital-physical experiences, code is the medium I'll use to build them. Moreover, it gives me a new way of developing my design from a data driven angle, which would be useful when developing systems and testing if it is even viable.
+    </p>
+    <p class="reveal">
+In an assignment for Creative Programming I created a Dance Dance Revolution game that really helped me in my development of game design and programming skills. Through this game I had to manage data collected to be able to calculate a final score based on your accuracy, streak and points, as well as managing how the interaction feels as interactable software. I didn't anticipate how important visual changes during interaction were. Initially when an arrow is pressed in game and you collect the point, it didn't feel like you collected the point. What really helped was adding a highlight based on what button was pressed and slowly fading out arrows that were correctly pressed.
+    </p>
+
+    <h3 class="reveal">Collaboration</h3>
+    <p class="reveal">
+In CBL1 we didn't have formal roles assigned, they emerged naturally. Mine ended up being sketching out ideas, finalising the ethics of the product, and assisting with prototyping closer to the end of the project.
+    </p>
+    <p class="reveal">
+One of my biggest contributions was pushing for the redesign of our game board from a pre-built globe to a flat-pack puzzle that forms a spherical polyhedron. This was my idea and it was a difficult change to introduce to my groupmates due to how late in the project it was made. We had already built two prototypes, so this felt like a step back to them. I believed the change was important because it added a depth to the design that wasn't there before, so I pushed for it even with the short deadline. Looking back, this urgency was avoidable. If we had gathered user feedback earlier, we would have found out sooner that our game lacked in quality of life. This is why for project 2 I plan on building a functional prototype in the first quarter to catch these issues earlier.
+    </p>
+    <p class="reveal">
+My other main contribution was owning the ethical side of the project. It was during this process, while conducting interviews and finalising the ethics, that I identified how we were introducing bias into our game through question difficulty, figurine power scaling, and regional representation.
+    </p>
+    <p class="reveal">
+Something I am not proud of is that midway through the project I burnt out and disengaged for about a week. This made my teammates frustrated and led to a direct confrontation. I found that this kind of direct approach works best for me. Because of this I now inform my teammates in advance how I respond to criticism and pressure, rather than waiting for it to become a problem.
+    </p>
 
   </section>
 
@@ -1216,7 +1227,7 @@ User and Society has made me deeply aware of my influence on society's views. Mo
     <h2 class="reveal">Where I am<br><em>going</em></h2>
 
     <div class="annotation reveal">
-      Till the end of Bachlor Y1 
+      Till the end of Bachelor Y1
     </div>
 
     <p class="reveal">
@@ -1235,15 +1246,15 @@ User and Society has made me deeply aware of my influence on society's views. Mo
       <li>
         <span class="goal-num">G-02</span>
         <div class="goal-text">
-          <strong>Print a modal for my CBL Project 2</strong>
-          <span>Follow up from fusion</span>
+          <strong>Print a model for my CBL Project 2</strong>
+          <span>Follow up from Fusion</span>
         </div>
       </li>
       <li>
         <span class="goal-num">G-03</span>
         <div class="goal-text">
           <strong>Exploratory Making DCB200</strong>
-          <span>I want to be able to create lower fidelity prototypes more effectivly</span>
+          <span>I want to be able to create lower fidelity prototypes more effectively</span>
         </div>
       </li>
       <li>
@@ -1261,7 +1272,6 @@ User and Society has made me deeply aware of my influence on society's views. Mo
     </p>
 
   </section>
-
 
   <!-- ════════════════════════════════════════════════════════════ -->
   <!-- 06 — PROJECTS                                                -->
@@ -1287,7 +1297,6 @@ User and Society has made me deeply aware of my influence on society's views. Mo
         researchers gathering information for a cultural archive, travelling across continents 
         collecting cultural points. Two modes: Team Mode and Mission Mode.
       </p>
-      
       <p>
         We followed the double diamond and RTDP design processes, iterating on weekly feedback 
         and user testing throughout.
@@ -1295,53 +1304,51 @@ User and Society has made me deeply aware of my influence on society's views. Mo
       <img src="IMG_5125.jpg" alt="First prototype used for video" style="width:100%; margin-top:1.5rem;">
       <a href="report.pdf">View Project</a>
     </div>
-     <!-- PROJECT 2 -->
+
     <div class="project-card reveal" style="margin-top: 3rem;">
       <div class="corner-mark"></div>
       <div class="project-tag">Project 02 — In Progress</div>
       <h3>Autonomous Object</h3>
       <p>
-        Project 2 is currently in progress.But currently we are working on tree like alarm. where i have developed my mechanical and prototyping skills by working on the project.
+        Project 2 is currently in progress. We are working on a tree-like alarm, where I have developed my mechanical and prototyping skills by working on the project.
       </p>
       <img src="C26DC631-5839-487B-AB06-F86BA6B67075.JPG" alt="First prototype" style="width:100%; margin-top:1.5rem;">
       <a href="Work book group 9.pdf">View Project</a>
     </div>
-               <!-- PROJECT 3 -->
+
     <div class="project-card reveal" style="margin-top: 3rem;">
       <div class="corner-mark"></div>
-      <div class="project-tag">Project 03 </div>
+      <div class="project-tag">Project 03</div>
       <h3>Creative Programming IMG</h3>
       <p>
-       This project was my first real attempt at coding. Where AI was used as a learning tool to understand the code and to be able to replicate it
+        This project was my first real attempt at coding. AI was used as a learning tool to understand the code and to be able to replicate it.
       </p>
       <img src="Challenge1_final_deliverable.jpg" alt="Final deliverable" style="width:100%; margin-top:1.5rem;">
     </div>
-                <!-- PROJECT 4 -->
+
     <div class="project-card reveal" style="margin-top: 3rem;">
       <div class="corner-mark"></div>
-      <div class="project-tag">Project 04 </div>
+      <div class="project-tag">Project 04</div>
       <h3>Creative Programming Game</h3>
       <p>
-       This progect was close to my vision where i focused on how in the game it was reactive to everything you did
+        This project was close to my vision where I focused on how the game was reactive to everything you did.
       </p>
-<video controls style="width:100%; margin-top:1.5rem; transform-origin: center center;">
-  <source src="video.mp4" type="video/mp4">
-</video>
+      <video controls style="width:100%; margin-top:1.5rem; transform-origin: center center;">
+        <source src="video.mp4" type="video/mp4">
+      </video>
     </div>
+
     <div class="project-card reveal" style="margin-top: 3rem;">
       <div class="corner-mark"></div>
       <div class="project-tag">Portfolio</div>
-      <h3>AI STATEMENT</h3>
+      <h3>AI Statement</h3>
       <p>
-        AI was used in creating this website it was used in helping to create the code for the designs. It was not used for the written content of the portfolio.
+        AI was used in creating this website — it helped create the code for the designs. It was not used for the written content of the portfolio.
       </p>
-
-
     </div>
 
   </section>
 
-  <!-- ─── FOOTER ────────────────────────────────────────────────── -->
   <footer>
     <div class="footer-id">
       <strong>Alexander Golovchits</strong> — Student no. 2382318 — DLB384 Portfolio
@@ -1351,12 +1358,7 @@ User and Society has made me deeply aware of my influence on society's views. Mo
     </div>
   </footer>
 
-  <!-- ─── SCRIPTS ───────────────────────────────────────────────── -->
   <script>
-    // ════════════════════════════════════════════════════════════
-    // INTRO SCREEN
-    // ════════════════════════════════════════════════════════════
-
     const bootLines = [
       { text: '> SYSTEM.BOOT  v1.504.26 ................................', cls: 'copper' },
       { text: '> CHECKING HARDWARE INTEGRITY...........................', cls: '' },
@@ -1402,7 +1404,6 @@ User and Society has made me deeply aware of my influence on society's views. Mo
       setTimeout(typeLine, delay);
     }
 
-    // Live clock in top HUD
     function updateClock() {
       const el = document.getElementById('intro-clock');
       if (!el) return;
@@ -1412,45 +1413,37 @@ User and Society has made me deeply aware of my influence on society's views. Mo
     updateClock();
     setInterval(updateClock, 1000);
 
-    // Start boot sequence after brief pause
     setTimeout(typeLine, 600);
 
-    // Dismiss handler — error screen + hex grid transition
     function dismissIntro() {
       glitchActive = false;
       const intro = document.getElementById('intro');
       const errorOverlay = document.getElementById('error-overlay');
 
-      // 1. Quick screen shake
       intro.style.transform = 'translate(-3px, 2px)';
       setTimeout(() => { intro.style.transform = 'translate(2px, -2px)'; }, 50);
       setTimeout(() => { intro.style.transform = ''; }, 100);
 
-      // 2. Flash the error screen
       setTimeout(() => {
         errorOverlay.classList.add('active');
         errorOverlay.classList.add('flicker');
       }, 150);
 
-      // 3. Remove flicker class after it plays
       setTimeout(() => {
         errorOverlay.classList.remove('flicker');
       }, 600);
 
-      // 4. After error shows, wipe line sweeps down to reveal portfolio
       setTimeout(() => {
         startWipeLine(intro);
       }, 2000);
     }
 
     function startWipeLine(intro) {
-      // Create the static line
       const line = document.createElement('div');
       line.className = 'wipe-line';
       line.style.top = '0px';
       document.body.appendChild(line);
 
-      // As the line moves down, clip the intro from the top
       const duration = 1200;
       const start = performance.now();
 
@@ -1465,7 +1458,6 @@ User and Society has made me deeply aware of my influence on society's views. Mo
         if (progress < 1) {
           requestAnimationFrame(animate);
         } else {
-          // Done — remove intro and line
           intro.style.display = 'none';
           document.body.classList.remove('intro-active');
           line.remove();
@@ -1475,7 +1467,6 @@ User and Society has made me deeply aware of my influence on society's views. Mo
       requestAnimationFrame(animate);
     }
 
-    // Spacebar or click to trigger
     document.addEventListener('keydown', function handler(e) {
       if (e.code === 'Space') {
         e.preventDefault();
@@ -1489,14 +1480,8 @@ User and Society has made me deeply aware of my influence on society's views. Mo
       this.removeEventListener('click', handler);
     });
 
-    // ════════════════════════════════════════════════════════════
-    // GLITCH EFFECTS (INTRO ONLY)
-    // ════════════════════════════════════════════════════════════
-
     let glitchActive = true;
 
-    // --- Glitch 1: Text jitter ---
-    // Randomly adds a quick shake to the intro-body
     function triggerJitter() {
       if (!glitchActive) return;
       const body = document.getElementById('intro-body');
@@ -1504,55 +1489,48 @@ User and Society has made me deeply aware of my influence on society's views. Mo
       body.addEventListener('animationend', () => {
         body.classList.remove('glitch-jitter');
       }, { once: true });
-      // Schedule next jitter: random 5–12 seconds
       setTimeout(triggerJitter, 5000 + Math.random() * 7000);
     }
     setTimeout(triggerJitter, 4000);
 
-    // --- Glitch 2: (removed — replaced by glass-break exit) ---
-
-    // --- Glitch 3: Color error blocks ---
-    // Small colored rectangles near edges of screen
     const glitchColors = [
-      'rgba(255, 60, 0, 0.6)',   // red-orange
-      'rgba(0, 220, 160, 0.5)',  // cyan-green
-      'rgba(184, 115, 51, 0.7)', // copper
-      'rgba(74, 124, 80, 0.6)',  // green
-      'rgba(255, 200, 0, 0.4)',  // yellow
+      'rgba(255, 60, 0, 0.6)',
+      'rgba(0, 220, 160, 0.5)',
+      'rgba(184, 115, 51, 0.7)',
+      'rgba(74, 124, 80, 0.6)',
+      'rgba(255, 200, 0, 0.4)',
     ];
 
     function triggerColorBlocks() {
       if (!glitchActive) return;
       const container = document.getElementById('glitch-blocks-container');
-      const count = 2 + Math.floor(Math.random() * 4); // 2–5 blocks
+      const count = 2 + Math.floor(Math.random() * 4);
 
       for (let i = 0; i < count; i++) {
         const block = document.createElement('div');
         block.className = 'glitch-color-block';
 
-        // Size: small rectangles
-        const w = 20 + Math.random() * 80;  // 20–100px wide
-        const h = 4 + Math.random() * 16;   // 4–20px tall
+        const w = 20 + Math.random() * 80;
+        const h = 4 + Math.random() * 16;
         block.style.width = w + 'px';
         block.style.height = h + 'px';
         block.style.background = glitchColors[Math.floor(Math.random() * glitchColors.length)];
 
-        // Position: push toward edges (not center)
-        const edge = Math.floor(Math.random() * 4); // 0=top, 1=bottom, 2=left, 3=right
+        const edge = Math.floor(Math.random() * 4);
         switch (edge) {
-          case 0: // top area
+          case 0:
             block.style.top = (Math.random() * 15) + '%';
             block.style.left = (Math.random() * 90) + '%';
             break;
-          case 1: // bottom area
+          case 1:
             block.style.bottom = (Math.random() * 15) + '%';
             block.style.left = (Math.random() * 90) + '%';
             break;
-          case 2: // left area
+          case 2:
             block.style.top = (Math.random() * 90) + '%';
             block.style.left = (Math.random() * 12) + '%';
             break;
-          case 3: // right area
+          case 3:
             block.style.top = (Math.random() * 90) + '%';
             block.style.right = (Math.random() * 12) + '%';
             break;
@@ -1561,20 +1539,14 @@ User and Society has made me deeply aware of my influence on society's views. Mo
         block.classList.add('active');
         container.appendChild(block);
 
-        // Remove after brief flash (60–180ms)
         setTimeout(() => {
           block.remove();
         }, 60 + Math.random() * 120);
       }
 
-      // Schedule next: random 7–15 seconds
       setTimeout(triggerColorBlocks, 7000 + Math.random() * 8000);
     }
     setTimeout(triggerColorBlocks, 6000);
-
-    // ════════════════════════════════════════════════════════════
-    // PORTFOLIO
-    // ════════════════════════════════════════════════════════════
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => {
@@ -1596,7 +1568,6 @@ User and Society has made me deeply aware of my influence on society's views. Mo
       }
     });
 
-    // ── Side dot highlighting ─────────────────────────────────
     const sections   = document.querySelectorAll('section[id]');
     const dots       = document.querySelectorAll('.side-dot');
     const sectionIds = ['hero','past','identity','vision','present','future','projects'];
